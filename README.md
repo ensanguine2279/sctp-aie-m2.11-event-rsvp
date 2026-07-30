@@ -50,22 +50,6 @@
 <details>
 <summary>Details</summary>
 
-## Overview
-
-- **Lesson:** Form Handling, Validation, and Deployment / 2.11
-- **Type:** Optional Take-Home Assignment
-- **Estimated Time:** 2 to 3 hours
-- **Submission:** GitHub repository link (or ZIP file) plus a live Netlify URL
-
-## Learning Objectives Covered
-
-This assignment reinforces:
-
-- Building a controlled form and handling submission in React
-- Defining a Yup schema and validating on both submit and blur
-- Reading configuration from Vite environment variables with the `VITE_` prefix
-- Deploying a React application to Netlify, including the SPA redirect and continuous deployment
-
 ## Assignment Description
 
 Build an **Event RSVP Form**: a small single-page app where a visitor can view an event's details and submit an RSVP with their name, email, number of guests, and dietary preferences. Submitted RSVPs are posted to a hosted mock API and displayed in a running list on the same page.
