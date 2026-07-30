@@ -47,6 +47,16 @@
 
     `Formik` requires wrapping your form in specialized components like `<Formik>`, `<Form>`, and `<Field>`, and passing down large render props or context objects. This can lead to deep nesting and verbose code.
 
+## Deliverables
+
+- The app is deployed live on Netlify at [https://sctp-aie-m2-11-event-rsvp.netlify.app/](https://sctp-aie-m2-11-event-rsvp.netlify.app/)
+
+- [Invalid email shows error message on blur](https://youtu.be/FjkWaQrLCRo)
+
+- [Form with empty fields shows all error messages at once](https://youtube.com/shorts/upLRDFdbzQU)
+
+- [Adding a new RSVP does not cause a page reload](https://youtube.com/shorts/u-PFkQHvgU0)
+
 <details>
 <summary>Details</summary>
 
