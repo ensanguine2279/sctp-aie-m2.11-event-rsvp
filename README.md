@@ -51,11 +51,11 @@
 
 - The app is deployed live on Netlify at [https://sctp-aie-m2-11-event-rsvp.netlify.app/](https://sctp-aie-m2-11-event-rsvp.netlify.app/)
 
-- Invalid email shows error message on blur [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat&logo=youtube&logoColor=white)](https://youtu.be/FjkWaQrLCRo)
+- <a href="https://youtu.be/FjkWaQrLCRo"><img src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube" width="14" /> Invalid email shows error message on blur</a>
 
-- Form with empty fields shows all error messages at once [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat&logo=youtube&logoColor=white)]
+- <a href="https://youtube.com/shorts/upLRDFdbzQU"><img src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube" width="14" /> Form with empty fields shows all error messages at once</a>
 
-- Adding a new RSVP does not cause a page reload [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat&logo=youtube&logoColor=white)](https://youtube.com/shorts/u-PFkQHvgU0)
+- <a href="https://youtube.com/shorts/u-PFkQHvgU0"><img src="https://cdn.simpleicons.org/youtube/FF0000" alt="YouTube" width="14" /> Adding a new RSVP does not cause a page reload</a>
 
 <details>
 <summary>Details</summary>
