@@ -28,7 +28,7 @@ export const rsvpSchema = yup
       )
       .typeError("Must be a number")
       .min(1, "At least 1 guest required")
-      .max(10, "Maximum 10 guests allowed")
+      .max(10, "Cannot RSVP for more than 10 guests.")
       .required("Number of guests is required"),
 
     dietary: yup

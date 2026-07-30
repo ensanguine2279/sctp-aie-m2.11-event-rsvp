@@ -3,9 +3,12 @@ import RsvpCard from "./RsvpCard";
 import styles from "./RsvpList.module.css";
 
 export default function RsvpList({ rsvps, isLoading, error, onDelete }) {
+  const totalGuests = rsvps.reduce((sum, rsvp) => sum + Number(rsvp.guests), 0);
+
   return (
     <div className={styles.listContainer}>
       <h2>Submitted RSVPs</h2>
+      <p>Total Confirmed Guests: {totalGuests}</p>
 
       {isLoading && (
         <p className={styles.loadingState}>Loading submissions...</p>

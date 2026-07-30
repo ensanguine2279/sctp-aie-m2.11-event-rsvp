@@ -1,7 +1,6 @@
 import styles from "./RsvpCard.module.css";
 
 export default function RsvpCard({ rsvp, onDelete }) {
-  console.log("Rendering RsvpCard for:", rsvp);
   return (
     <li className={styles.card}>
       <div className={styles.cardHeader}>

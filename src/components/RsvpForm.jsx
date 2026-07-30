@@ -58,10 +58,19 @@ export default function RsvpForm({ onSubmit }) {
 
       <div className={styles.fieldGroup}>
         <label htmlFor="guests">Number of Guests</label>
+        {/* min={1} ensures that the user cannot select a number less than 1, 
+        and step={1} ensures that the user can only select whole numbers (no decimals). 
+        The setValueAs function ensures that if the user enters a value less than 1 or an 
+        invalid number, it will default to 1. */}
         <input
           id="guests"
           type="number"
-          {...register("guests")}
+          min={1}
+          step={1}
+          {...register("guests", {
+            valueAsNumber: true,
+            setValueAs: (value) => Math.max(1, Number(value) || 1),
+          })}
           className={errors.guests ? styles.errorInput : ""}
         />
         {errors.guests && (
