@@ -29,6 +29,7 @@
     `Formik` (Controlled) relies heavily on controlled components. Every keystroke updates React state at the form level, triggering a re-render of the entire form component tree. For large forms with many fields, this leads to noticeable lag and performance bottlenecks unless heavily optimized with `React.memo`.
 
   - Bundle Size
+
     `React Hook Form` is highly optimized and lightweight (around 2.5 kB minified and gzipped).
 
     `Formik` is significantly heavier (around 15 kB minified and gzipped). While still reasonable, it carries more overhead.
@@ -46,6 +47,53 @@
     `React Hook Form` integrates cleanly with native HTML attributes and uses simple custom hooks like `register`. It requires noticeably less boilerplate code to set up basic inputs.
 
     `Formik` requires wrapping your form in specialized components like `<Formik>`, `<Form>`, and `<Field>`, and passing down large render props or context objects. This can lead to deep nesting and verbose code.
+
+## App Design Diagram
+
+```mermaid
+flowchart TD
+    U[User in Browser] --> A[App.jsx]
+
+    subgraph UI[React UI Layer]
+      A --> E[Event.jsx\nDisplays event name/date/location]
+      A --> F[RsvpForm.jsx\nCollects RSVP input]
+      A --> L[RsvpList.jsx\nShows submitted RSVPs]
+    end
+
+    subgraph State[Client State in App]
+      S1[event details constant]
+      S2[rsvps array state]
+      S3[loading and error state]
+    end
+
+    A --> S1
+    A --> S2
+    A --> S3
+    F -- on submit success --> A
+    A -- passes list props --> L
+
+    subgraph Validation[Form Validation]
+      Y[Yup schema via react-hook-form resolver]
+      B[Blur validation]
+      C[Submit validation]
+    end
+
+    F --> Y
+    Y --> B
+    Y --> C
+
+    subgraph API[Data Layer]
+      ENV[VITE_API_BASE_URL from env files]
+      AX[axios client]
+      M[(MockAPI resource: rsvps)]
+    end
+
+    A --> ENV
+    A --> AX
+    AX -- GET /rsvps on mount --> M
+    F -- POST /rsvps on valid submit --> M
+    M -- persisted RSVP response --> A
+```
 
 ## Deliverables
 
