@@ -49,6 +49,7 @@
 
 <details>
 <summary>Details</summary>
+
 ## Overview
 
 - **Lesson:** Form Handling, Validation, and Deployment / 2.11
