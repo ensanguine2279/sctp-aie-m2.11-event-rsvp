@@ -48,7 +48,7 @@
 
     `Formik` requires wrapping your form in specialized components like `<Formik>`, `<Form>`, and `<Field>`, and passing down large render props or context objects. This can lead to deep nesting and verbose code.
 
-## App Design Diagram
+## Design Diagram
 
 ```mermaid
 flowchart TD
@@ -93,6 +93,35 @@ flowchart TD
     AX -- GET /rsvps on mount --> M
     F -- POST /rsvps on valid submit --> M
     M -- persisted RSVP response --> A
+```
+
+## Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User
+    participant Form as RsvpForm.jsx
+    participant Schema as Yup + RHF Resolver
+    participant App as App.jsx State
+    participant API as axios
+    participant Mock as MockAPI /rsvps
+
+    User->>Form: Fill fields and click Submit
+    Form->>Schema: Validate name, email, guests, dietary
+
+    alt Validation fails
+        Schema-->>Form: Field errors
+        Form-->>User: Show inline error messages
+    else Validation passes
+        Form->>API: POST /rsvps payload
+        API->>Mock: Create RSVP record
+        Mock-->>API: 201 + saved RSVP
+        API-->>Form: response.data
+        Form->>App: onSuccess(savedRsvp)
+        App->>App: Append RSVP to rsvps state
+        App-->>User: List updates without page reload
+    end
 ```
 
 ## Deliverables
