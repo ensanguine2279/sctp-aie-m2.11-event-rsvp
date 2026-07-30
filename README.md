@@ -95,35 +95,6 @@ flowchart TD
     M -- persisted RSVP response --> A
 ```
 
-## Sequence Diagram
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor User
-    participant Form as RsvpForm.jsx
-    participant Schema as Yup + RHF Resolver
-    participant App as App.jsx State
-    participant API as axios
-    participant Mock as MockAPI /rsvps
-
-    User->>Form: Fill fields and click Submit
-    Form->>Schema: Validate name, email, guests, dietary
-
-    alt Validation fails
-        Schema-->>Form: Field errors
-        Form-->>User: Show inline error messages
-    else Validation passes
-        Form->>API: POST /rsvps payload
-        API->>Mock: Create RSVP record
-        Mock-->>API: 201 + saved RSVP
-        API-->>Form: response.data
-        Form->>App: onSuccess(savedRsvp)
-        App->>App: Append RSVP to rsvps state
-        App-->>User: List updates without page reload
-    end
-```
-
 ## Deliverables
 
 - The app is deployed live on Netlify at [https://sctp-aie-m2-11-event-rsvp.netlify.app/](https://sctp-aie-m2-11-event-rsvp.netlify.app/)
