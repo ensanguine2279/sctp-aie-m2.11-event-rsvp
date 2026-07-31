@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import axios from "axios";
 
 // Define allowed options as a constant for reuse
 export const DIETARY_OPTIONS = ["none", "halal", "vegetarian", "vegan"];
@@ -37,3 +38,5 @@ export const rsvpSchema = yup
       .required("Please select a dietary option"),
   })
   .required();
+
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;

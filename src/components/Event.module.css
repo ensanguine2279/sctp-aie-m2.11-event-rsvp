@@ -1,0 +1,70 @@
+/* Event.module.css */
+
+.header {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.selectorContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.select {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.select:hover {
+  border-color: #94a3b8;
+}
+
+.select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.detailsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 4px;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.detailItem {
+  margin: 0;
+}
+
+.detailItem strong {
+  color: #1e293b;
+}

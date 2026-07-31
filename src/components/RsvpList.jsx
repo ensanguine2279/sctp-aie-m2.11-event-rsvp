@@ -7,14 +7,12 @@ export default function RsvpList({ rsvps, isLoading, error, onDelete }) {
 
   return (
     <div className={styles.listContainer}>
-      <h2>Submitted RSVPs</h2>
-      <p>Total Confirmed Guests: {totalGuests}</p>
-
-      {isLoading && (
-        <p className={styles.loadingState}>Loading submissions...</p>
-      )}
+      {isLoading && <p className={styles.loadingState}>Loading rsvps...</p>}
 
       {error && <p className={styles.errorText}>{error}</p>}
+
+      <h2>Submitted RSVPs</h2>
+      <p>Total Confirmed Guests: {totalGuests}</p>
 
       {!isLoading && !error && rsvps.length === 0 && (
         <p className={styles.emptyState}>No RSVPs submitted yet.</p>

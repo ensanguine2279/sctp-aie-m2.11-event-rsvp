@@ -5,7 +5,7 @@ import { rsvpSchema, DIETARY_OPTIONS } from "../utils/data.js";
 
 import styles from "./RsvpForm.module.css";
 
-export default function RsvpForm({ onSubmit }) {
+export default function RsvpForm({ onSubmit, eventId }) {
   // Initialize the form with react-hook-form and Yup validation
   const {
     register, // Provides methods to register input fields for validation
@@ -18,7 +18,7 @@ export default function RsvpForm({ onSubmit }) {
   });
 
   const handleFormSubmit = async (data) => {
-    await onSubmit(data);
+    await onSubmit({ ...data, eventId });
     reset();
   };
 

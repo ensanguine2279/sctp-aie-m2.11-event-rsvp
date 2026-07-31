@@ -10,70 +10,94 @@ import styles from "./App.module.css";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default function App() {
-  const EVENT_ID = 1; // Assuming a single event for this example; in a real app, this could be dynamic
-
-  const [event, setEvent] = useState(null);
+  const [events, setEvents] = useState([]);
+  const [selectedEventId, setSelectedEventId] = useState(null);
   const [rsvps, setRsvps] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  // Fetch RSVPs on component mount with isMounted safety
+  const [isEventsLoading, setIsEventsLoading] = useState(true);
+  const [isRsvpsLoading, setIsRsvpsLoading] = useState(true);
+  const [eventsError, setEventsError] = useState(null);
+  const [rsvpsError, setRsvpsError] = useState(null);
+
+  // Fetch events when the App component mounts
   useEffect(() => {
     let isMounted = true;
 
-    const loadRsvps = async () => {
+    const loadEvents = async () => {
       try {
-        setIsLoading(true);
-        const response = await axios.get(`${API_BASE_URL}/rsvps`);
+        setIsEventsLoading(true);
+        const response = await axios.get(`${API_BASE_URL}/events`);
         if (isMounted) {
-          setRsvps(response.data);
+          setEvents(response.data);
+          if (response.data.length > 0) {
+            setSelectedEventId(response.data[0].id); // Select the first event by default
+          }
         }
       } catch (err) {
         if (isMounted) {
-          setError("Failed to load RSVP submissions.");
+          setEventsError("Failed to load events.");
           console.error(err);
         }
       } finally {
         if (isMounted) {
-          setIsLoading(false);
+          setIsEventsLoading(false);
         }
       }
     };
 
-    const loadEvent = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get(
-          `${API_BASE_URL}/events?id=${EVENT_ID}`,
-        );
-
-        if (isMounted && response.data.length === 0) {
-          setError("Event not found.");
-        }
-
-        // In case the API returns more than 1 event, we take the first event
-        if (isMounted && response.data.length >= 1) {
-          setEvent(response.data[0]);
-        }
-      } catch (err) {
-        if (isMounted) {
-          setError("Failed to load event data.");
-          console.error(err);
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    loadRsvps();
-    loadEvent();
+    loadEvents();
 
     return () => {
       isMounted = false;
     };
   }, []);
+
+  // Fetch RSVPs whenever the selected event changes
+  useEffect(() => {
+    // Prevent fetching RSVPs if selectedEventId is null or undefined
+    if (!selectedEventId) return;
+
+    let isMounted = true;
+
+    const loadRsvps = async () => {
+      try {
+        setIsRsvpsLoading(true);
+        setRsvpsError(null);
+        setRsvps([]); // Clear previous RSVPs when loading new ones
+
+        const response = await axios.get(`${API_BASE_URL}/rsvps`, {
+          params: {
+            eventId: selectedEventId,
+          },
+        });
+
+        if (isMounted) {
+          setRsvps(response.data);
+        }
+      } catch (err) {
+        console.error("Failed to load RSVPs:", err);
+        if (isMounted) {
+          // Check if the server returned a 404 Not Found error
+          if (err.response && err.response.status === 404) {
+            setRsvpsError("No RSVPs found.");
+            setRsvps([]); // Ensure the list is empty
+          } else {
+            setRsvpsError("Failed to load RSVP submissions.");
+          }
+        }
+      } finally {
+        if (isMounted) {
+          setIsRsvpsLoading(false);
+        }
+      }
+    };
+
+    loadRsvps();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedEventId]);
 
   // Handle new RSVP submission and refetch/update list
   const handleCreateRsvp = async (formData) => {
@@ -97,20 +121,30 @@ export default function App() {
     }
   };
 
+  const handleSelectEvent = (eventId) => {
+    setSelectedEventId(eventId);
+  };
+
   return (
     <div className={styles.appContainer}>
-      <Event event={event} />
-
+      <h1>RSVP Dashboard</h1>
+      <Event
+        events={events}
+        selectedEventId={selectedEventId}
+        isLoading={isEventsLoading}
+        error={eventsError}
+        onSelectEvent={handleSelectEvent}
+      />
       <main className={styles.mainContent}>
         <section className={styles.formSection}>
-          <RsvpForm onSubmit={handleCreateRsvp} />
+          <RsvpForm onSubmit={handleCreateRsvp} eventId={selectedEventId} />
         </section>
 
         <section className={styles.listSection}>
           <RsvpList
             rsvps={rsvps}
-            isLoading={isLoading}
-            error={error}
+            isLoading={isRsvpsLoading}
+            error={rsvpsError}
             onDelete={handleDeleteRsvp}
           />
         </section>
